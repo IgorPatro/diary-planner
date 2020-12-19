@@ -8,6 +8,7 @@ package-lock.json
 
 #local
 /.vscode
+.eslintcache
 
 # testing
 /coverage
