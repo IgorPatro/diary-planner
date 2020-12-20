@@ -7,7 +7,9 @@
         "extensions": [".js"]
       }
     ],
-    "react/prop-types": 2
+    "react/prop-types": 2,
+    "no-shadow": 0,
+    "react/jsx-props-no-spreading": 0
   },
   "settings": {
     "import/resolver": {

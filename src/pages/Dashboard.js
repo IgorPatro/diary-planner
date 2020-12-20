@@ -1,7 +1,38 @@
 import React from "react"
+import { logOutUser } from "store/actions"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
-const DashboardPage = () => {
-  return <div>DashboardPage</div>
+const DashboardPage = ({ logOutUser, user }) => {
+  return (
+    <div>
+      <button type="button" onClick={logOutUser}>
+        Wyloguj
+      </button>
+      <br />
+      Dane usera:
+      <br />
+      email:
+      {` ${user.email}`}
+    </div>
+  )
 }
 
-export default DashboardPage
+DashboardPage.propTypes = {
+  logOutUser: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.string).isRequired,
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOutUser: (email, password) => dispatch(logOutUser(email, password)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)
