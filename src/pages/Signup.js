@@ -1,18 +1,9 @@
-import React, { useRef, useEffect } from "react"
+import React, { useRef } from "react"
 import { createNewUser } from "store/actions"
 import { connect } from "react-redux"
-import { useHistory } from "react-router-dom"
 import PropTypes from "prop-types"
 
-const SignupPage = ({ createNewUser, user }) => {
-  const history = useHistory()
-
-  useEffect(() => {
-    if (user) {
-      history.push("/dashboard")
-    }
-  }, [history, user])
-
+const SignupPage = ({ createNewUser }) => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const repeatedPasswordRef = useRef()
@@ -37,17 +28,6 @@ const SignupPage = ({ createNewUser, user }) => {
 
 SignupPage.propTypes = {
   createNewUser: PropTypes.func.isRequired,
-  user: PropTypes.objectOf(PropTypes.string),
-}
-
-SignupPage.defaultProps = {
-  user: undefined,
-}
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -56,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupPage)
+export default connect(null, mapDispatchToProps)(SignupPage)
