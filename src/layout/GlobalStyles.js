@@ -4,6 +4,7 @@ const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 10px;
+    overflow-x: hidden;
   }
 
   *,
@@ -21,6 +22,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     font-family: 'Poppins', sans-serif;
     font-weight: normal;
+    background-color: black;
   }
 
   button {
