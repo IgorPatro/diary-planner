@@ -1,33 +1,47 @@
-import React, { useRef } from "react"
+import React, { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { createNewUser } from "store/actions"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 
-const SignupPage = ({ createNewUser }) => {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const repeatedPasswordRef = useRef()
+import FormLayout from "layout/FormLayout"
+import UserForm from "components/organisms/UserForm"
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+const SignupPage = ({ createNewUser, user }) => {
+  const history = useHistory()
 
-    if (passwordRef.current.value === repeatedPasswordRef.current.value) {
-      createNewUser(emailRef.current.value, passwordRef.current.value)
+  useEffect(() => {
+    if (user) {
+      history.push("/dashboard")
+    }
+  }, [history, user])
+
+  const handleSubmit = (data) => {
+    if (data.password === data.repeatedPassword) {
+      createNewUser(data.email, data.password)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" placeholder="your email" ref={emailRef} />
-      <input type="password" placeholder="your password" ref={passwordRef} />
-      <input type="password" placeholder="repeat your password" ref={repeatedPasswordRef} />
-      <input type="submit" value="Zarejestruj się" />
-    </form>
+    <FormLayout>
+      <UserForm registerForm submitFunc={handleSubmit} />
+    </FormLayout>
   )
 }
 
 SignupPage.propTypes = {
   createNewUser: PropTypes.func.isRequired,
+  user: PropTypes.objectOf(PropTypes.string),
+}
+
+SignupPage.defaultProps = {
+  user: undefined,
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -36,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignupPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupPage)

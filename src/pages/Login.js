@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { logInUser } from "store/actions"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
+
+import FormLayout from "layout/FormLayout"
+import UserForm from "components/organisms/UserForm"
 
 const LoginPage = ({ logInUser, user }) => {
   const history = useHistory()
@@ -13,21 +16,14 @@ const LoginPage = ({ logInUser, user }) => {
     }
   }, [history, user])
 
-  const emailRef = useRef()
-  const passwordRef = useRef()
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    logInUser(emailRef.current.value, passwordRef.current.value)
+  const handleSubmit = (data) => {
+    logInUser(data.email, data.password)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" placeholder="your email" ref={emailRef} />
-      <input type="password" placeholder="your password" ref={passwordRef} />
-      <input type="submit" value="Zaloguj się" />
-    </form>
+    <FormLayout>
+      <UserForm submitFunc={handleSubmit} />
+    </FormLayout>
   )
 }
 

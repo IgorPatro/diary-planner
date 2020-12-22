@@ -4,7 +4,7 @@ const theme = {
     black: "#000000",
     dark: "#222222",
     gold: "#7B7646",
-    yellow: "#FFDDAB",
+    yellow: "#FFD829",
     none: "none",
   },
   weights: {
