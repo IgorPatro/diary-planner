@@ -16,11 +16,11 @@ const theme = {
   },
   sizes: {
     xs: "1rem",
-    s: "1.2rem",
-    m: "1.5rem",
-    l: "1.8rem",
+    s: "1.1rem",
+    m: "1.4rem",
+    l: "1.7rem",
     xl: "2.2rem",
-    xxl: "3rem",
+    xxl: "2.8rem",
   },
   zIndex: (level) => level * 100,
 }
