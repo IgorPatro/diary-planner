@@ -27,7 +27,7 @@ const StyledLogo = styled.img`
 
 const StyledUserIcon = styled(Link)`
   width: 22px;
-  background: ${({ background }) => `url(${background})`};
+  background: url(${user});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -42,7 +42,7 @@ const HomeHud = () => {
       </StyledPart>
       <StyledPart>
         <SocialMedia />
-        <StyledUserIcon background={user} to="/dashboard" />
+        <StyledUserIcon to="/dashboard" />
       </StyledPart>
     </StyledWrapper>
   )

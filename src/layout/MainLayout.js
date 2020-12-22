@@ -26,7 +26,7 @@ const MainLayout = ({ children }) => {
         <title>
           {`${
             pathname === "/" ? "Home" : _.capitalize(pathname.substr(1, pathname.length))
-          } | DiaryPlanner`}
+          } | Diary Planner`}
         </title>
       </Helmet>
       <MenuOpenmetContext.Provider value={contextValue}>
