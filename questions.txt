@@ -1,0 +1,1 @@
+1. Jak nadawać fontom odpowiednie rozmiary? Tworzyć funkcje, wpisywać na sztywno z media queries, na sztywno wpisywać w theme jako xs, s i potem używać takich oznaczeń

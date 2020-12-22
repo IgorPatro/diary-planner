@@ -8,6 +8,7 @@ import { USER_AUTH_SUCCESS, USER_LOGOUT_SUCCESS } from "store/actions"
 import PropTypes from "prop-types"
 import PrivateRoute from "components/organisms/PrivateRoute"
 
+import MainLayout from "layout/MainLayout"
 import GlobalStyles from "layout/GlobalStyles"
 import DashboardPage from "pages/Dashboard"
 import HomePage from "pages/Home"
@@ -29,12 +30,14 @@ const App = ({ loggedIn, loggedOut }) => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signup" component={SignupPage} />
-          <PrivateRoute path="/dashboard" component={DashboardPage} />
-        </Switch>
+        <MainLayout>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={SignupPage} />
+            <PrivateRoute path="/dashboard" component={DashboardPage} />
+          </Switch>
+        </MainLayout>
       </BrowserRouter>
     </ThemeProvider>
   )

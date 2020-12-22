@@ -1,15 +1,26 @@
 const theme = {
-  white: "#ffffff",
-  black: "#000000",
-  dark: "#222222",
-  gold: "#7B7646",
-  yellow: "#FFDDAB",
-  none: "none",
+  colors: {
+    white: "#ffffff",
+    black: "#000000",
+    dark: "#222222",
+    gold: "#7B7646",
+    yellow: "#FFD829",
+    none: "none",
+  },
   weights: {
     light: 300,
     regular: 400,
+    medium: 500,
     semiBold: 600,
     bold: 700,
+  },
+  sizes: {
+    xs: "1rem",
+    s: "1.2rem",
+    m: "1.5rem",
+    l: "1.8rem",
+    xl: "2.2rem",
+    xxl: "3rem",
   },
   zIndex: (level) => level * 100,
 }

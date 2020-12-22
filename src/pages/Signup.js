@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react"
+import React, { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { createNewUser } from "store/actions"
 import { connect } from "react-redux"
-import { useHistory } from "react-router-dom"
 import PropTypes from "prop-types"
+
+import FormLayout from "layout/FormLayout"
+import UserForm from "components/organisms/UserForm"
 
 const SignupPage = ({ createNewUser, user }) => {
   const history = useHistory()
@@ -13,25 +16,16 @@ const SignupPage = ({ createNewUser, user }) => {
     }
   }, [history, user])
 
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const repeatedPasswordRef = useRef()
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (passwordRef.current.value === repeatedPasswordRef.current.value) {
-      createNewUser(emailRef.current.value, passwordRef.current.value)
+  const handleSubmit = (data) => {
+    if (data.password === data.repeatedPassword) {
+      createNewUser(data.email, data.password)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" placeholder="your email" ref={emailRef} />
-      <input type="password" placeholder="your password" ref={passwordRef} />
-      <input type="password" placeholder="repeat your password" ref={repeatedPasswordRef} />
-      <input type="submit" value="Zarejestruj się" />
-    </form>
+    <FormLayout>
+      <UserForm registerForm submitFunc={handleSubmit} />
+    </FormLayout>
   )
 }
 
