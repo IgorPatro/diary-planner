@@ -7,15 +7,16 @@ const StyledButton = styled.button`
   color: ${({ theme, color }) => (color ? theme.colors[color] : "black")};
   background-color: ${({ theme, background }) => (background ? theme.colors[background] : "white")};
   font-weight: ${({ theme }) => theme.weights.semiBold};
-  padding: 7px 35px;
+  padding: 10px 50px;
   transition: color 0.3s, background 0.3s;
   text-decoration: none;
   display: inline-block;
+  font-size: 1.8rem;
 
   &:hover {
-    color: ${({ theme, hoverColor }) => (hoverColor ? theme.colors[hoverColor] : "white")};
-    background-color: ${({ theme, hoverBackground }) =>
-      hoverBackground ? theme.colors[hoverBackground] : "black"};
+    color: ${({ theme, hovercolor }) => (hovercolor ? theme.colors[hovercolor] : "white")};
+    background-color: ${({ theme, hoverbackground }) =>
+      hoverbackground ? theme.colors[hoverbackground] : "black"};
   }
 `
 

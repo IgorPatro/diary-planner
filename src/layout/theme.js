@@ -15,12 +15,12 @@ const theme = {
     bold: 700,
   },
   sizes: {
-    xs: "1rem",
-    s: "1.1rem",
-    m: "1.4rem",
-    l: "1.7rem",
-    xl: "2.2rem",
-    xxl: "2.8rem",
+    xs: "1.8rem",
+    s: "2.4rem",
+    m: "3.3rem",
+    l: "3.8rem",
+    xl: "4.5rem",
+    xxl: "5rem",
   },
   zIndex: (level) => level * 100,
 }

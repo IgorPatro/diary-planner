@@ -7,13 +7,14 @@ import _ from "lodash/core"
 const StyledForm = styled.form`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 5px;
+  grid-gap: 8px;
   width: 160px;
 `
 
 const StyledInput = styled.input`
   font-size: 1rem;
   padding: 1px;
+  font-size: 1.7rem;
 `
 
 const StyledSubmit = styled.input`
@@ -25,6 +26,7 @@ const StyledSubmit = styled.input`
   cursor: pointer;
   transition: color 0.5s, background 0.5s;
   border: 1px solid black;
+  font-size: 1.7rem;
 
   &:hover {
     color: black;
@@ -37,6 +39,7 @@ const StyledErrorsWrapper = styled.span`
   text-align: center;
   opacity: 0;
   transition: opacity 0.3s;
+  font-size: 1.4rem;
 
   &.active {
     opacity: 1;

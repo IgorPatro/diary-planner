@@ -1,4 +1,9 @@
-import { USER_AUTH_SUCCESS, USER_LOGOUT_SUCCESS } from "store/actions"
+import {
+  USER_AUTH_SUCCESS,
+  USER_LOGOUT_SUCCESS,
+  NOTES_FETCH_SUCCESS,
+  CHANGE_EMAIL_SUCCESS,
+} from "store/actions"
 
 const rootReducer = (state = {}, action) => {
   switch (action.type) {
@@ -11,9 +16,19 @@ const rootReducer = (state = {}, action) => {
         },
       }
     case USER_LOGOUT_SUCCESS:
+      return {}
+    case NOTES_FETCH_SUCCESS:
       return {
         ...state,
-        user: undefined,
+        notes: action.notes,
+      }
+    case CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          email: action.newEmail,
+        },
       }
     default:
       return state
