@@ -22,11 +22,11 @@ const StyledPart = styled.div`
 `
 
 const StyledLogo = styled.img`
-  max-height: 20px;
+  height: 40px;
 `
 
 const StyledUserIcon = styled(Link)`
-  width: 22px;
+  width: 37px;
   background: url(${user});
   background-size: contain;
   background-repeat: no-repeat;

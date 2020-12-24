@@ -1,5 +1,6 @@
 import Firebase from "store/firebase"
 import "firebase/auth"
+import "firebase/firestore"
 
 // ----- USERS ----- //
 export const USER_AUTH_REQUEST = "USER_AUTH_REQUEST"
@@ -49,4 +50,28 @@ export const logOutUser = () => (dispatch) => {
     .catch((error) => {
       dispatch({ type: USER_LOGOUT_FAILURE })
     })
+}
+
+// ----- NOTES ----- //
+
+export const NOTES_FETCH_REQUEST = "NOTES_FETCH_REQUEST"
+export const NOTES_FETCH_SUCCESS = "NOTES_FETCH_SUCCESS"
+export const NOTES_FETCH_FAILURE = "NOTES_FETCH_FAILURE"
+
+export const fetchAllUserNotes = (userId) => (dispatch) => {
+  dispatch({ type: NOTES_FETCH_REQUEST })
+
+  Firebase.firestore()
+    .collection(userId)
+    .get()
+    .then((payload) => {
+      const notes = []
+
+      payload.forEach((doc) => {
+        notes.push({ id: doc.id, content: doc.data().content, date: doc.data().date.seconds })
+      })
+
+      dispatch({ type: NOTES_FETCH_SUCCESS, notes })
+    })
+    .catch((error) => dispatch({ type: NOTES_FETCH_FAILURE }))
 }

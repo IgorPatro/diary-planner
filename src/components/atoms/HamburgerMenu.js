@@ -11,15 +11,15 @@ const StyledHamburger = styled.button`
 `
 
 const StyledHamburgerBox = styled.span`
-  width: 35px;
-  height: 24px;
+  width: 55px;
+  height: 30px;
   display: inline-block;
   position: relative;
 `
 
 const StyledHamburgerInner = styled.span`
   width: 100%;
-  height: 4px;
+  height: 6px;
   background-color: white;
   position: absolute;
   left: 0;
@@ -39,11 +39,11 @@ const StyledHamburgerInner = styled.span`
   }
 
   &::before {
-    top: -10px;
+    top: -200%;
   }
 
   &::after {
-    top: 10px;
+    top: 200%;
     width: 70%;
   }
 
@@ -51,12 +51,12 @@ const StyledHamburgerInner = styled.span`
     background-color: transparent;
 
     &::before {
-      transform: translateY(10px) rotate(45deg);
+      transform: translateY(200%) rotate(45deg);
     }
 
     &::after {
       width: 100%;
-      transform: translateY(-10px) rotate(-45deg);
+      transform: translateY(-200%) rotate(-45deg);
     }
   }
 `

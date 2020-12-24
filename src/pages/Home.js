@@ -23,11 +23,11 @@ const StyledContentWrapper = styled.div`
   top: 50%;
   left: 50px;
   transform: translateY(-50%);
-  width: 400px;
+  width: 700px;
 `
 
 const StyledParagraph = styled(Paragraph)`
-  margin: 5px 0 10px;
+  margin: 10px 0 20px;
 `
 
 const HomePage = () => {
@@ -46,8 +46,8 @@ const HomePage = () => {
         <Button
           color="black"
           background="white"
-          hoverColor="white"
-          hoverBackground="black"
+          hovercolor="white"
+          hoverbackground="black"
           linkTo="/about"
         >
           READ MORE

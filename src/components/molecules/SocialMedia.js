@@ -8,16 +8,16 @@ import twitter from "assets/icons/twitter.svg"
 const StyledContainer = styled.div``
 
 const StyledLink = styled.a`
-  width: 25px;
+  width: 40px;
   display: inline-block;
-  margin-right: 7px;
+  margin-right: 10px;
 `
 
 const StyledIcon = styled.img`
   max-width: 100%;
   background-color: #222222;
   border-radius: 100%;
-  padding: 3px;
+  padding: 5px;
   transition: transform 0.3s, background 0.3s;
 
   &:hover {
@@ -48,7 +48,7 @@ const SocialMedia = () => {
   return (
     <StyledContainer>
       {data.map((socialMedia) => (
-        <StyledLink href={socialMedia.url} rel="noreferrer" target="_blank">
+        <StyledLink href={socialMedia.url} key={socialMedia.name} rel="noreferrer" target="_blank">
           <StyledIcon src={socialMedia.icon} alt={`${socialMedia.name} icon`} />
         </StyledLink>
       ))}

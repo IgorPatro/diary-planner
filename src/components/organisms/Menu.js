@@ -11,7 +11,7 @@ const StyledMenu = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 300px;
   height: 100vh;
   background-color: black;
   z-index: ${({ theme }) => theme.zIndex(1)};
@@ -27,6 +27,7 @@ const StyledMenu = styled.div`
 const StyledLink = styled(Link)`
   color: white;
   text-decoration: none;
+  font-size: 2rem;
 `
 
 const Menu = () => {

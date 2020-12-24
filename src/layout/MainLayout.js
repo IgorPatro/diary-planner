@@ -9,7 +9,7 @@ import Menu from "components/organisms/Menu"
 
 const StyledMain = styled.main`
   transition: width 0.5s;
-  width: ${({ menuOpen }) => (menuOpen ? "calc(100% - 200px)" : "100%")};
+  width: ${({ menuOpen }) => (menuOpen ? "calc(100% - 300px)" : "100%")};
 `
 
 export const MenuOpenmetContext = createContext()
