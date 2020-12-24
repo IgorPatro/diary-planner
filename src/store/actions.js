@@ -12,11 +12,6 @@ export const USER_CREATION_FAILURE = "USER_CREATION_FAILURE"
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST"
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS"
 export const USER_LOGOUT_FAILURE = "USER_LOGOUT_FAILURE"
-export const USER_REAUTHENTICATE_REQUEST = "USER_REAUTHENTICATE_REQUEST"
-export const USER_REAUTHENTICATE_SUCCESS = "USER_REAUTHENTICATE_SUCCESS"
-export const USER_REAUTHENTICATE_FAILURE = "USER_REAUTHENTICATE_FAILURE"
-export const SHOW_USER_REAUTHENTICATE_FORM = "SHOW_USER_REAUTHENTICATE_FORM"
-export const HIDE_USER_REAUTHENTICATE_FORM = "HIDE_USER_REAUTHENTICATE_FORM"
 
 export const createNewUser = (email, password) => (dispatch) => {
   dispatch({ type: USER_CREATION_REQUEST })
@@ -54,31 +49,6 @@ export const logOutUser = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: USER_LOGOUT_FAILURE })
-    })
-}
-
-const showUserReauthenticateForm = () => (dispatch) => {
-  dispatch({ type: SHOW_USER_REAUTHENTICATE_FORM })
-}
-
-const hideUserReauthenticateForm = () => (dispatch) => {
-  dispatch({ type: HIDE_USER_REAUTHENTICATE_FORM })
-}
-
-export const reauthenticateUser = (email, password) => (dispatch) => {
-  dispatch({ type: USER_REAUTHENTICATE_REQUEST })
-
-  const { currentUser } = Firebase.auth()
-
-  currentUser
-    .reauthenticateWithCredential(email, password)
-    .then(() => {
-      dispatch({ type: USER_REAUTHENTICATE_SUCCESS })
-      hideUserReauthenticateForm()
-    })
-    .catch((error) => {
-      dispatch({ type: USER_REAUTHENTICATE_FAILURE })
-      console.log(error)
     })
 }
 
@@ -124,6 +94,5 @@ export const changeUserEmail = (newEmail) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: CHANGE_EMAIL_FAILURE })
-      showUserReauthenticateForm()
     })
 }
