@@ -12,6 +12,11 @@ export const USER_CREATION_FAILURE = "USER_CREATION_FAILURE"
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST"
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS"
 export const USER_LOGOUT_FAILURE = "USER_LOGOUT_FAILURE"
+export const USER_REAUTHENTICATE_REQUEST = "USER_REAUTHENTICATE_REQUEST"
+export const USER_REAUTHENTICATE_SUCCESS = "USER_REAUTHENTICATE_SUCCESS"
+export const USER_REAUTHENTICATE_FAILURE = "USER_REAUTHENTICATE_FAILURE"
+export const SHOW_USER_REAUTHENTICATE_FORM = "SHOW_USER_REAUTHENTICATE_FORM"
+export const HIDE_USER_REAUTHENTICATE_FORM = "HIDE_USER_REAUTHENTICATE_FORM"
 
 export const createNewUser = (email, password) => (dispatch) => {
   dispatch({ type: USER_CREATION_REQUEST })
@@ -52,6 +57,31 @@ export const logOutUser = () => (dispatch) => {
     })
 }
 
+const showUserReauthenticateForm = () => (dispatch) => {
+  dispatch({ type: SHOW_USER_REAUTHENTICATE_FORM })
+}
+
+const hideUserReauthenticateForm = () => (dispatch) => {
+  dispatch({ type: HIDE_USER_REAUTHENTICATE_FORM })
+}
+
+export const reauthenticateUser = (email, password) => (dispatch) => {
+  dispatch({ type: USER_REAUTHENTICATE_REQUEST })
+
+  const { currentUser } = Firebase.auth()
+
+  currentUser
+    .reauthenticateWithCredential(email, password)
+    .then(() => {
+      dispatch({ type: USER_REAUTHENTICATE_SUCCESS })
+      hideUserReauthenticateForm()
+    })
+    .catch((error) => {
+      dispatch({ type: USER_REAUTHENTICATE_FAILURE })
+      console.log(error)
+    })
+}
+
 // ----- NOTES ----- //
 
 export const NOTES_FETCH_REQUEST = "NOTES_FETCH_REQUEST"
@@ -74,4 +104,26 @@ export const fetchAllUserNotes = (userId) => (dispatch) => {
       dispatch({ type: NOTES_FETCH_SUCCESS, notes })
     })
     .catch((error) => dispatch({ type: NOTES_FETCH_FAILURE }))
+}
+
+// ----- USER DATA ----- //
+
+export const CHANGE_EMAIL_REQUEST = "CHANGE_EMAIL_REQUEST"
+export const CHANGE_EMAIL_SUCCESS = "CHANGE_EMAIL_SUCCESS"
+export const CHANGE_EMAIL_FAILURE = "CHANGE_EMAIL_FAILURE"
+
+export const changeUserEmail = (newEmail) => (dispatch) => {
+  dispatch({ type: CHANGE_EMAIL_REQUEST })
+
+  const { currentUser } = Firebase.auth()
+
+  currentUser
+    .updateEmail(newEmail)
+    .then(() => {
+      dispatch({ type: CHANGE_EMAIL_SUCCESS, newEmail })
+    })
+    .catch((error) => {
+      dispatch({ type: CHANGE_EMAIL_FAILURE })
+      showUserReauthenticateForm()
+    })
 }

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react"
-import { logOutUser, fetchAllUserNotes } from "store/actions"
+import { logOutUser, fetchAllUserNotes, reauthenticateUser } from "store/actions"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
+import UserForm from "components/organisms/UserForm"
 import UserInfo from "components/organisms/UserInfo"
 import Notes from "components/organisms/Notes"
 
@@ -14,10 +15,21 @@ const StyledContainer = styled.div`
   padding: 30px;
 `
 
-const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes }) => {
+const DashboardPage = ({
+  logOutUser,
+  user,
+  fetchAllUserNotes,
+  notes,
+  isUserReauthenting,
+  reauthenticateUser,
+}) => {
   useEffect(() => {
     fetchAllUserNotes(user.uid)
   }, [fetchAllUserNotes, user.uid])
+
+  const handleReauthenticateFormSubmit = (data) => {
+    reauthenticateUser(data.email, data.password)
+  }
 
   return (
     <StyledContainer>
@@ -26,6 +38,7 @@ const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes }) => {
       </button>
       <UserInfo user={user} />
       {notes && <Notes notes={notes} />}
+      {isUserReauthenting && <UserForm submitFunc={handleReauthenticateFormSubmit} />}
     </StyledContainer>
   )
 }
@@ -41,23 +54,28 @@ DashboardPage.propTypes = {
       id: PropTypes.string,
     })
   ),
+  isUserReauthenting: PropTypes.bool,
+  reauthenticateUser: PropTypes.func.isRequired,
 }
 
 DashboardPage.defaultProps = {
   notes: undefined,
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logOutUser: (email, password) => dispatch(logOutUser(email, password)),
-    fetchAllUserNotes: (userId) => dispatch(fetchAllUserNotes(userId)),
-  }
+  isUserReauthenting: false,
 }
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
     notes: state.notes,
+    isUserReauthenting: state.reauthenticatingUserInProgress,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOutUser: (email, password) => dispatch(logOutUser(email, password)),
+    fetchAllUserNotes: (userId) => dispatch(fetchAllUserNotes(userId)),
+    reauthenticateUser: (email, password) => dispatch(reauthenticateUser(email, password)),
   }
 }
 

@@ -1,8 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import styled from "styled-components"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { changeUserEmail } from "store/actions"
 
 import pencil from "assets/icons/pencil.svg"
+import done from "assets/icons/done.svg"
 import Header from "components/atoms/Header"
 import Paragraph from "components/atoms/Paragraph"
 
@@ -31,8 +34,26 @@ const StyledInput = styled.input`
   margin-left: 5px;
 `
 
-const UserInfo = ({ user }) => {
+const UserInfo = ({ user, changeUserEmail }) => {
   const [isEmailEditable, setEmailEditability] = useState(false)
+  const newEmailRef = useRef()
+
+  const validateEmail = (email) => {
+    const RegEx = /\S+@\S+\.\S+/
+    return RegEx.test(email)
+  }
+
+  const handleCLick = () => {
+    const newEmail = newEmailRef.current.value
+    if (validateEmail(newEmail)) {
+      try {
+        changeUserEmail(newEmail)
+        setEmailEditability(false)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 
   return (
     <StyledContainer>
@@ -42,11 +63,12 @@ const UserInfo = ({ user }) => {
       <StyledParagraph color="black" size="xs">
         email:
         {isEmailEditable ? (
-          <StyledInput placeholder="Your new email" />
+          <StyledInput placeholder="Your new email" ref={newEmailRef} />
         ) : (
           <StyledSpan>{user.email}</StyledSpan>
         )}
         <StyledIcon src={pencil} onClick={() => setEmailEditability(!isEmailEditable)} />
+        {isEmailEditable && <StyledIcon src={done} onClick={() => handleCLick()} />}
       </StyledParagraph>
     </StyledContainer>
   )
@@ -54,6 +76,13 @@ const UserInfo = ({ user }) => {
 
 UserInfo.propTypes = {
   user: PropTypes.objectOf(PropTypes.string).isRequired,
+  changeUserEmail: PropTypes.func.isRequired,
 }
 
-export default UserInfo
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeUserEmail: (newEmail) => dispatch(changeUserEmail(newEmail)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(UserInfo)
