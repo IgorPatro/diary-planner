@@ -31,9 +31,6 @@ export const logInUser = (email, password) => (dispatch) => {
 
   Firebase.auth()
     .signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      // dispatch({ type: USER_AUTH_SUCCESS })
-    })
     .catch((error) => {
       dispatch({ type: USER_AUTH_FAILURE })
     })
@@ -44,9 +41,6 @@ export const logOutUser = () => (dispatch) => {
 
   Firebase.auth()
     .signOut()
-    .then(() => {
-      // dispatch({ type: USER_LOGOUT_SUCCESS })
-    })
     .catch((error) => {
       dispatch({ type: USER_LOGOUT_FAILURE })
     })
@@ -57,6 +51,12 @@ export const logOutUser = () => (dispatch) => {
 export const NOTES_FETCH_REQUEST = "NOTES_FETCH_REQUEST"
 export const NOTES_FETCH_SUCCESS = "NOTES_FETCH_SUCCESS"
 export const NOTES_FETCH_FAILURE = "NOTES_FETCH_FAILURE"
+export const ADD_NOTE_REQUEST = "ADD_NOTE_REQUEST"
+export const ADD_NOTE_SUCCESS = "ADD_NOTE_SUCCESS"
+export const ADD_NOTE_FAILURE = "ADD_NOTE_FAILURE"
+export const DELETE_NOTE_REQUEST = "DELETE_NOTE_REQUEST"
+export const DELETE_NOTE_SUCCESS = "DELETE_NOTE_SUCCESS"
+export const DELETE_NOTE_FAILURE = "DELETE_NOTE_FAILURE"
 
 export const fetchAllUserNotes = (userId) => (dispatch) => {
   dispatch({ type: NOTES_FETCH_REQUEST })
@@ -74,6 +74,42 @@ export const fetchAllUserNotes = (userId) => (dispatch) => {
       dispatch({ type: NOTES_FETCH_SUCCESS, notes })
     })
     .catch((error) => dispatch({ type: NOTES_FETCH_FAILURE }))
+}
+
+export const addNote = (userId, note) => (dispatch) => {
+  dispatch({ type: ADD_NOTE_REQUEST })
+
+  const date = new Date()
+
+  Firebase.firestore()
+    .collection(userId)
+    .doc(Math.random().toString(36).substr(2, 9))
+    .set({
+      content: note,
+      date,
+    })
+    .then(() => {
+      dispatch({ type: ADD_NOTE_SUCCESS })
+      dispatch(fetchAllUserNotes(userId))
+    })
+    .catch((error) => {
+      dispatch({ type: ADD_NOTE_FAILURE })
+    })
+}
+
+export const deleteNote = (userId, noteId) => (dispatch) => {
+  dispatch({ type: DELETE_NOTE_REQUEST })
+
+  Firebase.firestore()
+    .collection(userId)
+    .doc(noteId)
+    .delete()
+    .then(() => {
+      dispatch({ type: DELETE_NOTE_SUCCESS, noteId })
+    })
+    .catch((error) => {
+      dispatch({ type: DELETE_NOTE_FAILURE })
+    })
 }
 
 // ----- USER DATA ----- //

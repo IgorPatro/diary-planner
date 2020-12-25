@@ -15,6 +15,8 @@ const GlobalStyles = createGlobalStyle`
     font-size: 10px;
     padding: 0;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -29,6 +31,10 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     cursor: pointer;
     border: none;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  input, textarea {
     font-family: 'Poppins', sans-serif;
   }
 

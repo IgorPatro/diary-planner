@@ -21,7 +21,11 @@ Paragraph.propTypes = {
   color: PropTypes.string,
   size: PropTypes.string,
   weight: PropTypes.string,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
+}
+
+Paragraph.defaultProps = {
+  className: undefined,
 }
 
 Paragraph.defaultProps = {
