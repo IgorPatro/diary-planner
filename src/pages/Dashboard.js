@@ -1,31 +1,40 @@
 import React, { useEffect } from "react"
-import { logOutUser, fetchAllUserNotes } from "store/actions"
+import { logOutUser, fetchAllUserNotes, addNote, deleteNote } from "store/actions"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
+import NoteForm from "components/organisms/NoteForm"
+import Button from "components/atoms/Button"
 import UserInfo from "components/organisms/UserInfo"
 import Notes from "components/organisms/Notes"
 
 const StyledContainer = styled.div`
   background-color: white;
   width: 100%;
-  height: 100vh;
-  padding: 30px;
+  min-height: 100vh;
+  padding: 50px 50px 200px;
 `
 
-const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes }) => {
+const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes, addNote, deleteNote }) => {
   useEffect(() => {
     fetchAllUserNotes(user.uid)
   }, [fetchAllUserNotes, user.uid])
 
   return (
     <StyledContainer>
-      <button type="button" onClick={logOutUser}>
+      <Button
+        color="white"
+        background="black"
+        hovercolor="black"
+        hoverbackground="yellow"
+        onClick={logOutUser}
+      >
         Wyloguj
-      </button>
+      </Button>
       <UserInfo user={user} />
-      {notes && <Notes notes={notes} />}
+      {notes && <Notes notes={notes} deleteNoteFunc={deleteNote} userId={user.uid} />}
+      <NoteForm submitFunc={addNote} userId={user.uid} />
     </StyledContainer>
   )
 }
@@ -41,6 +50,8 @@ DashboardPage.propTypes = {
       id: PropTypes.string,
     })
   ),
+  addNote: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
 }
 
 DashboardPage.defaultProps = {
@@ -58,6 +69,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logOutUser: (email, password) => dispatch(logOutUser(email, password)),
     fetchAllUserNotes: (userId) => dispatch(fetchAllUserNotes(userId)),
+    addNote: (userId, note) => dispatch(addNote(userId, note)),
+    deleteNote: (userId, noteId) => dispatch(deleteNote(userId, noteId)),
   }
 }
 

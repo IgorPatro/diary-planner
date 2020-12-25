@@ -3,6 +3,7 @@ import {
   USER_LOGOUT_SUCCESS,
   NOTES_FETCH_SUCCESS,
   CHANGE_EMAIL_SUCCESS,
+  DELETE_NOTE_SUCCESS,
 } from "store/actions"
 
 const rootReducer = (state = {}, action) => {
@@ -21,6 +22,13 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         notes: action.notes,
+      }
+    case DELETE_NOTE_SUCCESS:
+      return {
+        ...state,
+        notes: state.notes.filter((note) => {
+          return note.id !== action.noteId
+        }),
       }
     case CHANGE_EMAIL_SUCCESS:
       return {
