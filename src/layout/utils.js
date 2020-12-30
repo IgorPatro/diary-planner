@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+
+// This function chooses between white or black to create the best color difference (used to set notes background)
 export const blackOrWhite = (hex) => {
   hex = hex.slice(1)
 
@@ -18,4 +20,5 @@ export const randomColor = () => {
   return `#${color}`
 }
 
+// Function creates normal human date from unix timestamp
 export const createProperDate = (unixTime) => new Date(unixTime * 1000).toLocaleString()
