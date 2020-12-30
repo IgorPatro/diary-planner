@@ -1,4 +1,5 @@
-import React from "react"
+/* eslint-disable no-param-reassign */
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import PropTypes from "prop-types"
 import styled from "styled-components"
@@ -8,7 +9,7 @@ const StyledForm = styled.form`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 8px;
-  width: 160px;
+  width: 340px;
 `
 
 const StyledInput = styled.input`
@@ -40,15 +41,29 @@ const StyledErrorsWrapper = styled.span`
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 1.4rem;
+  color: black;
 
   &.active {
     opacity: 1;
   }
 `
 
-const UserForm = ({ registerForm, submitFunc }) => {
+const UserForm = ({ registerForm, submitFunc, errorMessage }) => {
   const { register, handleSubmit, errors } = useForm()
-  const handleSubmitFunc = (data) => submitFunc(data)
+
+  const [differentPasswords, setDifferentPasswords] = useState(null)
+
+  const handleSubmitFunc = (data) => {
+    if (registerForm) {
+      if (data.password === data.repeatedPassword) {
+        submitFunc(data)
+      } else {
+        setDifferentPasswords("Hasła się nie zgadzają")
+      }
+    } else {
+      submitFunc(data)
+    }
+  }
 
   return (
     <StyledForm onSubmit={handleSubmit(handleSubmitFunc)}>
@@ -72,8 +87,10 @@ const UserForm = ({ registerForm, submitFunc }) => {
         />
       )}
       <StyledSubmit type="submit" value={registerForm ? "Zarejestruj się" : "Zaloguj się"} />
-      <StyledErrorsWrapper className={!_.isEmpty(errors) && "active"}>
-        Sprawdź ponownie poprawność wypełnionych danych
+      <StyledErrorsWrapper
+        className={(!_.isEmpty(errors) || errorMessage || differentPasswords) && "active"}
+      >
+        {errorMessage || differentPasswords || "Twoje pola nie są uzupełnione poprawnie"}
       </StyledErrorsWrapper>
     </StyledForm>
   )
@@ -82,10 +99,12 @@ const UserForm = ({ registerForm, submitFunc }) => {
 UserForm.propTypes = {
   registerForm: PropTypes.bool,
   submitFunc: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
 }
 
 UserForm.defaultProps = {
   registerForm: false,
+  errorMessage: null,
 }
 
 export default UserForm
