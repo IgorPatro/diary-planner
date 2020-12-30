@@ -3,6 +3,7 @@ import { logOutUser, fetchAllUserNotes, addNote, deleteNote } from "store/action
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 import NoteForm from "components/organisms/NoteForm"
 import Button from "components/atoms/Button"
@@ -16,6 +17,18 @@ const StyledContainer = styled.div`
   padding: 50px 50px 200px;
 `
 
+const StyledLink = styled(Link)`
+  display: block;
+  font-size: 2rem;
+  color: black;
+  text-decoration: none;
+  margin: 0 0 20px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
 const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes, addNote, deleteNote }) => {
   useEffect(() => {
     fetchAllUserNotes(user.uid)
@@ -23,6 +36,7 @@ const DashboardPage = ({ logOutUser, user, fetchAllUserNotes, notes, addNote, de
 
   return (
     <StyledContainer>
+      <StyledLink to="/">back to home</StyledLink>
       <Button
         color="white"
         background="black"

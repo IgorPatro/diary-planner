@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import FormLayout from "layout/FormLayout"
 import UserForm from "components/organisms/UserForm"
 
-const SignupPage = ({ createNewUser, user }) => {
+const SignupPage = ({ createNewUser, user, signupErrorMessage }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -17,14 +17,12 @@ const SignupPage = ({ createNewUser, user }) => {
   }, [history, user])
 
   const handleSubmit = (data) => {
-    if (data.password === data.repeatedPassword) {
-      createNewUser(data.email, data.password)
-    }
+    createNewUser(data.email, data.password)
   }
 
   return (
     <FormLayout>
-      <UserForm registerForm submitFunc={handleSubmit} />
+      <UserForm registerForm submitFunc={handleSubmit} errorMessage={signupErrorMessage} />
     </FormLayout>
   )
 }
@@ -32,15 +30,18 @@ const SignupPage = ({ createNewUser, user }) => {
 SignupPage.propTypes = {
   createNewUser: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.string),
+  signupErrorMessage: PropTypes.string,
 }
 
 SignupPage.defaultProps = {
   user: undefined,
+  signupErrorMessage: null,
 }
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    signupErrorMessage: state.signupErrorMessage,
   }
 }
 

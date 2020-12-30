@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import FormLayout from "layout/FormLayout"
 import UserForm from "components/organisms/UserForm"
 
-const LoginPage = ({ logInUser, user }) => {
+const LoginPage = ({ logInUser, user, loginErrorMessage }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const LoginPage = ({ logInUser, user }) => {
 
   return (
     <FormLayout>
-      <UserForm submitFunc={handleSubmit} />
+      <UserForm submitFunc={handleSubmit} errorMessage={loginErrorMessage} />
     </FormLayout>
   )
 }
@@ -30,15 +30,18 @@ const LoginPage = ({ logInUser, user }) => {
 LoginPage.propTypes = {
   logInUser: PropTypes.func.isRequired,
   user: PropTypes.objectOf(PropTypes.string),
+  loginErrorMessage: PropTypes.string,
 }
 
 LoginPage.defaultProps = {
   user: undefined,
+  loginErrorMessage: null,
 }
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    loginErrorMessage: state.loginErrorMessage,
   }
 }
 
