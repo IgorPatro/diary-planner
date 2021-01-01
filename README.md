@@ -1,8 +1,8 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
+
+First you need to create your own .env file to initialize your firebase app locally. That will look like this:
+
+`REACT_APP_FIREBASE_API_KEY=................................\ REACT_APP_FIREBASE_AUTH_DOMAIN=................................ REACT_APP_FIREBASE_PROJECT_ID=................................ REACT_APP_FIREBASE_STORAGE_BUCKET=................................ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=................................ REACT_APP_FIREBASE_APP_ID=................................`
 
 In the project directory, you can run:
 
@@ -14,12 +14,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm run build`
+## `using app`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+There are created some custom credentials. If you will use them, you will be able to login to the app and and add notes what will be `public` and anyone who will login with those credentials, will see your notes!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`Email: example@example.com Password: 123456`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `creating your own account`
+
+You don't need to verify your email, so you can make up the false one and use it during the creation process.
