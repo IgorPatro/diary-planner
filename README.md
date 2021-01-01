@@ -24,3 +24,7 @@ There are created some custom credentials. If you will use them, you will be abl
 ### `creating your own account`
 
 You don't need to verify your email, so you can make up the false one and use it during the creation process.
+
+## Online App
+
+If you want to use app globally, you can visit this [link](https://diary-planner-b254f.web.app/), where app is deployed to firebase hosting. Have a nice time with writing your own notes!
