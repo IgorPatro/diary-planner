@@ -14,7 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-## using app
+## Using App
 
 There are created some custom credentials. If you will use them, you will be able to login to the app and and add notes what will be `public` and anyone who will login with those credentials, will see your notes!
 
