@@ -7,6 +7,7 @@ My first working react app. Very basic planner for managing notes and tasks
 
 ## Demo link:
 Access this site at: [https://diary-planner-b254f.web.app](https://diary-planner-b254f.web.app)
+Email: example@example.com Password: 123456
 
 ## Technologies
 - CRA
